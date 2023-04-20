@@ -1,6 +1,6 @@
-package ru.technicalExcellence.codingDojo
+package ru.andreyTw.romanCalculator
 
-import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 
 /**
@@ -20,12 +20,7 @@ class RomanConverterShould {
 
     @Test
     fun convert_I_to_1() {
-        assertEquals(1, RomanConverter.convert("I"))
+        Assertions.assertEquals(1, RomanConverter.convert("I"))
     }
 
-    object RomanConverter {
-        fun convert(roman: String): Int {
-            return 1
-        }
-    }
 }
