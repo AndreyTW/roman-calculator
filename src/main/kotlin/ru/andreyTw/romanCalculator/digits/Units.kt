@@ -1,4 +1,4 @@
-package ru.andreyTw.romanCalculator
+package ru.andreyTw.romanCalculator.digits
 
 enum class Units(val arabianValue: Int, val romanValue: String){
     ONE(1, "I"),

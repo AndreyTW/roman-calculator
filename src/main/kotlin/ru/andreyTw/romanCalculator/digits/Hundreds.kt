@@ -1,4 +1,4 @@
-package ru.andreyTw.romanCalculator
+package ru.andreyTw.romanCalculator.digits
 
 enum class Hundreds(val arabianValue: Int, val romanValue: String){
     ONE_HUNDRED(100, "C"),

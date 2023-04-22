@@ -1,4 +1,4 @@
-package ru.andreyTw.romanCalculator
+package ru.andreyTw.romanCalculator.digits
 
 enum class Tens(val arabianValue: Int, val romanValue: String){
     TEN(10, "X"),
