@@ -3,28 +3,14 @@ package ru.andreyTw.romanCalculator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
-import java.util.*
 import java.util.stream.Stream
 
-/**
- * Task:
- *
- *
- * V + VII * XX = CMV ?
- * MAX <= 1000
- * brackets - 2nd stage
- *
- * [ ] Roman Numbers <-> Arabic Numbers
- * [ ] Divide input string to operands and operators
- *
- */
-
-class RomanConverterShould {
+class ArabicToRomanConverterShould {
 
     @ParameterizedTest(name = "{0}")
     @MethodSource("parameters")
     fun convert(entry: Pair<String, Int>) {
-        assertEquals(entry.second, RomanConverter.convert(entry.first))
+        assertEquals(entry.first, ArabicToRomanConverter.convert(entry.second))
     }
 
     companion object {
@@ -33,8 +19,8 @@ class RomanConverterShould {
             Pair("I", 1),
             Pair("II", 2),
             Pair("III", 3),
-            Pair("V", 5)
+            Pair("DCCCLXXXVIII", 888),
+            Pair("M", 1000)
         )
     }
-
 }
