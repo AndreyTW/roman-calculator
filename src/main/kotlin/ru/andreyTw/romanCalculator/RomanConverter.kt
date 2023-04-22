@@ -3,10 +3,15 @@ package ru.andreyTw.romanCalculator
 object RomanConverter {
     fun convert(roman: String): Int {
         return when (roman) {
-            "I" -> 1
-            "II" -> 2
-            "III" -> 3
-            else -> 5
+            Units.ONE.romanValue -> Units.ONE.arabianValue
+            Units.TWO.romanValue -> Units.TWO.arabianValue
+            Units.THREE.romanValue -> Units.THREE.arabianValue
+            else -> Units.FIVE.arabianValue
         }
     }
+}
+
+fun main() {
+    println(Units.FOUR.arabianValue)
+    println(Units.FOUR.romanValue)
 }
