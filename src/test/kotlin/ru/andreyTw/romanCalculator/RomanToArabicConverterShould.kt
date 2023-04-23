@@ -33,7 +33,9 @@ class RomanToArabicConverterShould {
             Pair("I", 1),
             Pair("II", 2),
             Pair("III", 3),
-            Pair("V", 5)
+            Pair("V", 5),
+            Pair("DCCCLXXXVIII", 888),
+            Pair("M", 1000),
         )
     }
 }
