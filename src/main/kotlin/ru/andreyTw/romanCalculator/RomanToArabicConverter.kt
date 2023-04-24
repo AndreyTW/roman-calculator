@@ -2,8 +2,8 @@ package ru.andreyTw.romanCalculator
 
 object RomanToArabicConverter {
     fun convert(roman: String): Int {
-        val num = roman.split("").map {
-            when (it) {
+        val num = roman.toCharArray().map {
+            when (it.toString()) {
                 Digits.ONE.romanValueUnits -> Digits.ONE.arabianValue
                 Digits.FIVE.romanValueUnits -> Digits.FIVE.arabianValue
                 Digits.ONE.romanValueTens -> Digits.ONE.arabianValue * 10
@@ -13,9 +13,12 @@ object RomanToArabicConverter {
                 Digits.ONE.romanValueThousands -> Digits.ONE.arabianValue * 1000
                 else -> 0
             }
-        }.subList(1, roman.length + 1)
+        }
         return num.reduceIndexed { i, acc, _ ->
-            if (num[i] > num[i - 1]) acc + num[i] - 2 * num[i - 1] else acc + num[i]
+            reduce(num, i, acc)
         }
     }
+
+    private fun reduce(num: List<Int>, i: Int, acc: Int) =
+        if (num[i] > num[i - 1]) acc + num[i] - 2 * num[i - 1] else acc + num[i]
 }

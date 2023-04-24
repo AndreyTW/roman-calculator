@@ -27,12 +27,18 @@ class RomanToArabicConverterShould {
         assertEquals(entry.second, RomanToArabicConverter.convert(entry.first))
     }
 
+//    @Test
+//    fun reduce() {
+//        assertEquals(4, reduce(listOf(1, 5), , ))
+//    }
+
     companion object {
         @JvmStatic
         fun parameters(): Stream<Pair<String, Int>> = Stream.of(
             Pair("I", 1),
             Pair("II", 2),
             Pair("III", 3),
+            Pair("IV", 4),
             Pair("V", 5),
             Pair("DCCCLXXXVIII", 888),
             Pair("M", 1000),
