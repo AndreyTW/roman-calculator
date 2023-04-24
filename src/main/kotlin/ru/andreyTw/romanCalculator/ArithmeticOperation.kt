@@ -1,13 +1,12 @@
 package ru.andreyTw.romanCalculator
 
-abstract class ArithmeticOperation(
-    protected val a2X: (arabic: Int) -> String,
-    protected val x2A: (x: String) -> Int,
+class ArithmeticOperation(
+    private val a2X: (arabic: Int) -> String,
+    private val x2A: (x: String) -> Int,
 ) {
 
-    abstract fun oper(): (a: Int, b: Int) -> Int
+    fun plus(a: String, b: String): String = apply(a, b) { x1: Int, x2: Int -> x1 + x2 }
+    fun minus(a: String, b: String): String = apply(a, b) { x1: Int, x2: Int -> x1 - x2 }
 
-    fun apply(a: String, b: String): String {
-        return a2X(oper()(x2A(a), x2A(b)))
-    }
+    private fun apply(a: String, b: String, oper: (Int, Int) -> Int): String = a2X(oper(x2A(a), x2A(b)))
 }
