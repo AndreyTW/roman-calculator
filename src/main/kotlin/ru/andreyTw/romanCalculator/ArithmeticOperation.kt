@@ -5,8 +5,10 @@ class ArithmeticOperation(
     private val x2A: (x: String) -> Int,
 ) {
 
-    fun plus(a: String, b: String): String = apply(a, b) { x1: Int, x2: Int -> x1 + x2 }
-    fun minus(a: String, b: String): String = apply(a, b) { x1: Int, x2: Int -> x1 - x2 }
+    fun sum(a: String, b: String): String = apply(a, b) { x1: Int, x2: Int -> x1 + x2 }
+    fun subtract(a: String, b: String): String = apply(a, b) { x1: Int, x2: Int -> x1 - x2 }
+    fun multiply(a: String, b: String): String = apply(a, b) { x1: Int, x2: Int -> x1 * x2 }
+    fun divide(a: String, b: String): String = apply(a, b) { x1: Int, x2: Int -> x1 / x2 }
 
-    private fun apply(a: String, b: String, oper: (Int, Int) -> Int): String = a2X(oper(x2A(a), x2A(b)))
+    private fun apply(a: String, b: String, operation: (Int, Int) -> Int): String = a2X(operation(x2A(a), x2A(b)))
 }

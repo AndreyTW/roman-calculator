@@ -1,4 +1,6 @@
-package ru.andreyTw.romanCalculator
+package ru.andreyTw.romanCalculator.converters
+
+import ru.andreyTw.romanCalculator.constants.Digits
 
 object ArabicToRomanConverter {
     fun convert(arabic: Int): String {

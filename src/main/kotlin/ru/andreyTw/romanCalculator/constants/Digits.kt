@@ -1,4 +1,4 @@
-package ru.andreyTw.romanCalculator
+package ru.andreyTw.romanCalculator.constants
 
 enum class Digits(
     val arabianValue: Int,
