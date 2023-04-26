@@ -35,4 +35,6 @@ class RomanNumber : Comparable<RomanNumber> {
 
     fun add(other: RomanNumber): RomanNumber = RomanNumber(this.arabicValue + other.arabicValue)
 
+    override fun toString(): String = romanValue
+
 }
