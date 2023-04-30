@@ -1,12 +1,6 @@
 package ru.andreyTw.romanCalculator
 
-import ru.andreyTw.romanCalculator.converters.ArabicToRomanConverter
-import ru.andreyTw.romanCalculator.converters.RomanToArabicConverter
 import ru.andreyTw.romanCalculator.model.RomanNumber
-
-val arabicToXConverter = ArabicToRomanConverter::convert
-val xToArabicConverter = RomanToArabicConverter::convert
-val arithmeticOperation = ArithmeticOperation(arabicToXConverter, xToArabicConverter)
 
 fun main() {
 
@@ -17,9 +11,9 @@ fun main() {
         val operands = EquationParser.parse(equation)
         val result = when (operands.third) {
             "+" -> RomanNumber(operands.first).add(RomanNumber(operands.second))
-            "-" -> arithmeticOperation.subtract(operands.first, operands.second)
-            "*" -> arithmeticOperation.multiply(operands.first, operands.second)
-            "/" -> arithmeticOperation.divide(operands.first, operands.second)
+            "-" -> RomanNumber(operands.first).subtract(RomanNumber(operands.second))
+            "*" -> RomanNumber(operands.first).multiply(RomanNumber(operands.second))
+            "/" -> RomanNumber(operands.first).divide(RomanNumber(operands.second))
             else -> "???"
         }
         println("$equation=$result")

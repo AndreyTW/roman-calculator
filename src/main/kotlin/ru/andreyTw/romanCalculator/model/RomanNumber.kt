@@ -34,6 +34,9 @@ class RomanNumber : Comparable<RomanNumber> {
         this.arabicValue.compareTo(other.arabicValue)
 
     fun add(other: RomanNumber): RomanNumber = RomanNumber(this.arabicValue + other.arabicValue)
+    fun subtract(other: RomanNumber): RomanNumber = RomanNumber(this.arabicValue - other.arabicValue)
+    fun multiply(other: RomanNumber): RomanNumber = RomanNumber(this.arabicValue * other.arabicValue)
+    fun divide(other: RomanNumber): RomanNumber = RomanNumber(this.arabicValue / other.arabicValue)
 
     override fun toString(): String = romanValue
 

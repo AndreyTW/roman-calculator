@@ -39,7 +39,22 @@ class RomanNumberShould {
     }
 
     @Test
-    fun beAddToOtherNumber() {
+    fun beAddedToOtherNumber() {
         assertEquals(21, RomanNumber("XI").add(RomanNumber(10)).arabicValue)
+    }
+
+    @Test
+    fun beReducedByOtherNumber() {
+        assertEquals(1, RomanNumber("XI").subtract(RomanNumber(10)).arabicValue)
+    }
+
+    @Test
+    fun beMultipliedByOtherNumber() {
+        assertEquals(110, RomanNumber("XI").multiply(RomanNumber(10)).arabicValue)
+    }
+
+    @Test
+    fun beDividedByOtherNumber() {
+        assertEquals(5, RomanNumber("XXVI").divide(RomanNumber(5)).arabicValue)
     }
 }
