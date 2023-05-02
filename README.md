@@ -10,4 +10,5 @@
 
     1. Input validation
     2. Test coverage extension
-    3. ...
+    3. Use brackets
+    4. ...
