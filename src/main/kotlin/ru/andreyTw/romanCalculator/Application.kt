@@ -3,13 +3,13 @@ package ru.andreyTw.romanCalculator
 import com.pengrad.telegrambot.TelegramBot
 import com.pengrad.telegrambot.UpdatesListener
 import com.pengrad.telegrambot.request.SendMessage
-import ru.andreyTw.romanCalculator.Config.botKey
 import ru.andreyTw.romanCalculator.model.EquationException
 import ru.andreyTw.romanCalculator.model.RomanNumber
+import java.io.File
 
 fun main() {
 
-    val bot = TelegramBot(botKey)
+    val bot = TelegramBot(File("botKey").readText())
     bot.setUpdatesListener { updates ->
         updates.forEach {
             val message = it.message().text()

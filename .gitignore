@@ -1,5 +1,4 @@
 .idea/
 .gradle/
 build/
-out/
-/src/main/kotlin/ru/andreyTw/romanCalculator/Config.kt
+botKey
