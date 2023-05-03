@@ -23,6 +23,6 @@ class ConverterIntegrationTest {
     companion object {
         @JvmStatic
         fun numbers(): Stream<Int> =
-            (0..20).map { (Math.random() * 1000).toInt() }.toList().stream()
+            (0..20).map { (Math.random() * 1000 + 1).toInt() }.toList().stream()
     }
 }
