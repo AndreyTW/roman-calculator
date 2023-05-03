@@ -30,6 +30,7 @@ fun main() {
         println("$equation=$result")
     }
 
+    bot.removeGetUpdatesListener()
     bot.shutdown()
 }
 
