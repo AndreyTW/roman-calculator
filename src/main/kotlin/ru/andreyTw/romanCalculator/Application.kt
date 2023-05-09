@@ -3,6 +3,7 @@ package ru.andreyTw.romanCalculator
 import com.pengrad.telegrambot.TelegramBot
 import com.pengrad.telegrambot.UpdatesListener
 import com.pengrad.telegrambot.request.SendMessage
+import ru.andreyTw.romanCalculator.constants.Operations
 import ru.andreyTw.romanCalculator.model.EquationException
 import ru.andreyTw.romanCalculator.model.RomanNumber
 import java.io.File
@@ -37,13 +38,13 @@ fun main() {
 private fun calculate(equation: String): String = try {
     val operands = EquationParser.parse(equation)
     val result = when (operands.third) {
-        "+" -> RomanNumber(operands.first).add(RomanNumber(operands.second))
-        "-" -> RomanNumber(operands.first).subtract(RomanNumber(operands.second))
-        "*" -> RomanNumber(operands.first).multiply(RomanNumber(operands.second))
-        "/" -> RomanNumber(operands.first).divide(RomanNumber(operands.second))
+        Operations.PLUS.symbol -> RomanNumber(operands.first).add(RomanNumber(operands.second))
+        Operations.MINUS.symbol -> RomanNumber(operands.first).subtract(RomanNumber(operands.second))
+        Operations.STAR.symbol -> RomanNumber(operands.first).multiply(RomanNumber(operands.second))
+        Operations.SLASH.symbol -> RomanNumber(operands.first).divide(RomanNumber(operands.second))
         else -> "???"
     }
     result.toString()
 } catch (e: EquationException) {
-    "Achtung!!! Wrong symbol is given!!!"
+    "Error! Wrong equation is given!"
 }

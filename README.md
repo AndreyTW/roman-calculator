@@ -13,4 +13,5 @@
     3. Test coverage extension
     4. Use brackets
     5. Remove code duplicates
-    6. ...
+    6. Check TODOs
+    7. ...
