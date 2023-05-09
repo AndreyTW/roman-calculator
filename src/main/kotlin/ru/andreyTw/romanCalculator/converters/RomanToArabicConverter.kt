@@ -17,10 +17,10 @@ object RomanToArabicConverter {
             }
         }
         return num.reduceIndexed { i, acc, _ ->
-            reduce(num, i, acc)
+            calcSumOfDigits(num, i, acc)
         }
     }
 
-    private fun reduce(num: List<Int>, i: Int, acc: Int) =
+    private fun calcSumOfDigits(num: List<Int>, i: Int, acc: Int) =
         if (num[i] > num[i - 1]) acc + num[i] - 2 * num[i - 1] else acc + num[i]
 }
