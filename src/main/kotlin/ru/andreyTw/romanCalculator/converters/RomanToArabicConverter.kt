@@ -1,9 +1,12 @@
 package ru.andreyTw.romanCalculator.converters
 
 import ru.andreyTw.romanCalculator.constants.Digits
+import ru.andreyTw.romanCalculator.model.RomanNumberException
 
 object RomanToArabicConverter {
     fun convert(roman: String): Int {
+        isRomanNumberCorrect(roman)
+
         val num = roman.toCharArray().map {
             when (it.toString()) {
                 Digits.ONE.romanValueUnits -> Digits.ONE.arabianValue
@@ -19,6 +22,10 @@ object RomanToArabicConverter {
         return num.reduceIndexed { i, acc, _ ->
             calcSumOfDigits(num, i, acc)
         }
+    }
+
+    private fun isRomanNumberCorrect(roman: String) {
+        if (roman == "IIII" || roman == "IIV" || roman == "IC") throw RomanNumberException()
     }
 
     private fun calcSumOfDigits(num: List<Int>, i: Int, acc: Int) =

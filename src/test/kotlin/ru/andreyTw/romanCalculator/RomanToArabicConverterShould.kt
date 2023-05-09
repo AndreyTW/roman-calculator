@@ -1,24 +1,14 @@
 package ru.andreyTw.romanCalculator
 
 import org.junit.jupiter.api.Assertions.assertEquals
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import org.junit.jupiter.params.ParameterizedTest
 import org.junit.jupiter.params.provider.MethodSource
 import ru.andreyTw.romanCalculator.converters.RomanToArabicConverter
+import ru.andreyTw.romanCalculator.model.RomanNumberException
 import java.util.*
 import java.util.stream.Stream
-
-/**
- * Task:
- *
- *
- * V + VII * XX = CXLV ?
- * MAX <= 1000
- * brackets - 2nd stage
- *
- * [ ] Roman Numbers <-> Arabic Numbers
- * [ ] Divide input string to operands and operators
- *
- */
 
 class RomanToArabicConverterShould {
 
@@ -44,5 +34,20 @@ class RomanToArabicConverterShould {
             Pair("DCCCLXXXVIII", 888),
             Pair("M", 1000),
         )
+    }
+
+    @Test
+    fun throwException_whenMoreThenThreeSameDigitsAreGiven() {
+        assertThrows<RomanNumberException> { RomanToArabicConverter.convert("IIII") }
+    }
+
+    @Test
+    fun throwException_whenLargerDigitFollowsIncorrectSmallerDigit() {
+        assertThrows<RomanNumberException> { RomanToArabicConverter.convert("IC") }
+    }
+
+    @Test
+    fun throwException_whenLargerDigitFollowsMoreThanOneSmallerDigit() {
+        assertThrows<RomanNumberException> { RomanToArabicConverter.convert("IIV") }
     }
 }
