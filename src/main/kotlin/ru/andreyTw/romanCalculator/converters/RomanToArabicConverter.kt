@@ -5,7 +5,6 @@ import ru.andreyTw.romanCalculator.model.RomanNumberException
 
 object RomanToArabicConverter {
     fun convert(roman: String): Int {
-        isRomanNumberCorrect(roman)
 
         val num = roman.toCharArray().map {
             when (it.toString()) {
@@ -19,13 +18,49 @@ object RomanToArabicConverter {
                 else -> 0
             }
         }
+
+        isRomanInitialConversionCorrect(num)
+
         return num.reduceIndexed { i, acc, _ ->
             calcSumOfDigits(num, i, acc)
         }
     }
 
-    private fun isRomanNumberCorrect(roman: String) {
-        if (roman == "IIII" || roman == "IIV" || roman == "IC") throw RomanNumberException()
+    private fun isRomanInitialConversionCorrect(num: List<Int>) {
+        when {
+            num.size > 3 -> {
+                (3 until num.size).forEach { i ->
+                    if (
+                        num[i] == num[i - 1] &&
+                        num[i] == num[i - 2] &&
+                        num[i] == num[i - 3]
+                    ) throw RomanNumberException()
+                }
+            }
+
+            num.size > 2 -> {
+                (2 until num.size).forEach { i ->
+                    if (
+                        num[i] > num[i - 1] &&
+                        num[i] > num[i - 2]
+                    ) throw RomanNumberException()
+                }
+            }
+
+            num.size > 1 -> {
+                (1 until num.size).forEach { i ->
+                    if (num[i] > num[i - 1]) {
+                        if (!(num[i - 1] == 1 && num[i] == 5) &&
+                            !(num[i - 1] == 10 && num[i] == 50) &&
+                            !(num[i - 1] == 100 && num[i] == 500) &&
+                            !(num[i - 1] == 1 && num[i] == 10) &&
+                            !(num[i - 1] == 10 && num[i] == 100) &&
+                            !(num[i - 1] == 100 && num[i] == 1000)
+                        ) throw RomanNumberException()
+                    }
+                }
+            }
+        }
     }
 
     private fun calcSumOfDigits(num: List<Int>, i: Int, acc: Int) =

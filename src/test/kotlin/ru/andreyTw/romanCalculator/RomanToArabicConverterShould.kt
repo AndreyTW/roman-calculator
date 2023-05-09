@@ -18,11 +18,6 @@ class RomanToArabicConverterShould {
         assertEquals(entry.second, RomanToArabicConverter.convert(entry.first))
     }
 
-//    @Test
-//    fun reduce() {
-//        assertEquals(4, reduce(listOf(1, 5), , ))
-//    }
-
     companion object {
         @JvmStatic
         fun parameters(): Stream<Pair<String, Int>> = Stream.of(
@@ -42,12 +37,12 @@ class RomanToArabicConverterShould {
     }
 
     @Test
-    fun throwException_whenLargerDigitFollowsIncorrectSmallerDigit() {
-        assertThrows<RomanNumberException> { RomanToArabicConverter.convert("IC") }
+    fun throwException_whenLargerDigitFollowsMoreThanOneSmallerDigit() {
+        assertThrows<RomanNumberException> { RomanToArabicConverter.convert("IIV") }
     }
 
     @Test
-    fun throwException_whenLargerDigitFollowsMoreThanOneSmallerDigit() {
-        assertThrows<RomanNumberException> { RomanToArabicConverter.convert("IIV") }
+    fun throwException_whenLargerDigitFollowsIncorrectSmallerDigit() {
+        assertThrows<RomanNumberException> { RomanToArabicConverter.convert("IC") }
     }
 }

@@ -6,6 +6,7 @@ import com.pengrad.telegrambot.request.SendMessage
 import ru.andreyTw.romanCalculator.constants.Operations
 import ru.andreyTw.romanCalculator.model.EquationException
 import ru.andreyTw.romanCalculator.model.RomanNumber
+import ru.andreyTw.romanCalculator.model.RomanNumberException
 import java.io.File
 
 fun main() {
@@ -42,9 +43,12 @@ private fun calculate(equation: String): String = try {
         Operations.MINUS.symbol -> RomanNumber(operands.first).subtract(RomanNumber(operands.second))
         Operations.STAR.symbol -> RomanNumber(operands.first).multiply(RomanNumber(operands.second))
         Operations.SLASH.symbol -> RomanNumber(operands.first).divide(RomanNumber(operands.second))
+        //TODO is this "else" required?
         else -> "???"
     }
     result.toString()
 } catch (e: EquationException) {
-    "Error! Wrong equation is given!"
+    "\nError! Wrong equation is given!"
+} catch (e: RomanNumberException) {
+    "\nError! Incorrect roman number is given!"
 }
