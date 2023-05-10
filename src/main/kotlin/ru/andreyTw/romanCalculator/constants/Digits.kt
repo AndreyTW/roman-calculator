@@ -15,5 +15,9 @@ enum class Digits(
     SIX(6, "VI", "LX", "DC", ""),
     SEVEN(7, "VII", "LXX", "DCC", ""),
     EIGHT(8, "VIII", "LXXX", "DCCC", ""),
-    NINE(9, "IX", "XC", "CM", "")
+    NINE(9, "IX", "XC", "CM", "");
+
+    companion object {
+        val regex: String = "CDILMVX"
+    }
 }

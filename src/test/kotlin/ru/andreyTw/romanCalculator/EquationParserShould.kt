@@ -52,4 +52,9 @@ class EquationParserShould {
         assertThrows<EquationException> { EquationParser.parse("II") }
     }
 
+    @Test
+    fun throwException_whenNumberContainsMoreThenTwelveCharacters() {
+        assertThrows<EquationException> { EquationParser.parse("V+IIIIIIIIIIIII") }
+    }
+
 }
