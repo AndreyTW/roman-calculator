@@ -57,4 +57,6 @@ class RomanNumberShould {
     fun beDividedByOtherNumber() {
         assertEquals(5, RomanNumber("XXVI").divide(RomanNumber(5)).arabicValue)
     }
+
+    //TODO RomanNumber.operation(other, operation)
 }
