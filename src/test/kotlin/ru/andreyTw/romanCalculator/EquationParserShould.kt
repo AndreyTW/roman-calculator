@@ -3,33 +3,31 @@ package ru.andreyTw.romanCalculator
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.assertThrows
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
 import ru.andreyTw.romanCalculator.constants.Operations
+import ru.andreyTw.romanCalculator.constants.Operations.*
 import ru.andreyTw.romanCalculator.model.EquationException
+import java.util.stream.Stream
 
 class EquationParserShould {
 
-    @Test
-    fun `return_I_and_I_and_plus_when_I+I_is_given`() {
-        val actual = EquationParser.parse("I+I")
-        assertEquals(Triple("I", "I", Operations.PLUS.symbol), actual)
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("equationParseParameters")
+    fun returnTripleOfOperandsAndOperation(entry: Pair<String, Operations>) {
+        val actual = EquationParser.parse(entry.first)
+        assertEquals(Triple("I", "I", entry.second.symbol), actual)
     }
 
-    @Test
-    fun `return_I_and_I_and_minus_when_I-I_is_given`() {
-        val actual = EquationParser.parse("I-I")
-        assertEquals(Triple("I", "I", Operations.MINUS.symbol), actual)
-    }
-
-    @Test
-    fun `return_I_and_I_and_multiply_when_IstarI_is_given`() {
-        val actual = EquationParser.parse("I*I")
-        assertEquals(Triple("I", "I", Operations.STAR.symbol), actual)
-    }
-
-    @Test
-    fun `return_I_and_I_and_divide_when_IslashI_is_given`() {
-        val actual = EquationParser.parse("I/I")
-        assertEquals(Triple("I", "I", Operations.SLASH.symbol), actual)
+    companion object {
+        @JvmStatic
+        fun equationParseParameters(): Stream<Pair<String, Operations>> = Stream.of(
+            Pair("I+I", PLUS),
+            Pair("I-I", MINUS),
+            Pair("I*I", STAR),
+            Pair("I/I", SLASH),
+            Pair(" I + I ", PLUS)
+        )
     }
 
     @Test

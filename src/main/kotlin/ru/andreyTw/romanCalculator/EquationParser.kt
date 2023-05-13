@@ -7,13 +7,15 @@ import ru.andreyTw.romanCalculator.model.EquationException
 class EquationParser {
     companion object {
         fun parse(inputEquation: String): Triple<String, String, String> {
-            isCorrect(inputEquation)
+            val inputEquationWithSpacesRemoved = inputEquation.replace(" ", "").also {
+                isCorrect(it)
+            }
 
-            return inputEquation.split(*Operations.all.toTypedArray()).let {
+            return inputEquationWithSpacesRemoved.split(*Operations.all.toTypedArray()).let {
                 Triple(
                     it.first(),
                     it.last(),
-                    "[${Operations.regexp}]".toRegex().find(inputEquation)?.value ?: ""
+                    "[${Operations.regexp}]".toRegex().find(inputEquationWithSpacesRemoved)?.value ?: ""
                 )
             }
         }
