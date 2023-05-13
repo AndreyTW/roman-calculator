@@ -3,7 +3,6 @@ package ru.andreyTw.romanCalculator
 import com.pengrad.telegrambot.TelegramBot
 import com.pengrad.telegrambot.UpdatesListener
 import com.pengrad.telegrambot.request.SendMessage
-import ru.andreyTw.romanCalculator.constants.Operations
 import ru.andreyTw.romanCalculator.model.EquationException
 import ru.andreyTw.romanCalculator.model.RomanNumber
 import ru.andreyTw.romanCalculator.model.RomanNumberException
@@ -16,7 +15,7 @@ fun main() {
         updates.forEach {
             val message = it.message().text()
             println("Message = \"$message\" was received")
-            val result = calculate(message)
+            val result = processExpression(message)
             bot.execute(SendMessage(it.message().chat().id(), result))
         }
         UpdatesListener.CONFIRMED_UPDATES_ALL
@@ -27,7 +26,7 @@ fun main() {
         val equation = readln()
         if (equation == "exit") break
 
-        val result = calculate(equation)
+        val result = processExpression(equation)
 
         println("$equation=$result")
     }
@@ -36,16 +35,9 @@ fun main() {
     bot.shutdown()
 }
 
-private fun calculate(equation: String): String = try {
+private fun processExpression(equation: String): String = try {
     val operands = EquationParser.parse(equation)
-    val result = when (operands.third) {
-        Operations.PLUS.symbol -> RomanNumber(operands.first).add(RomanNumber(operands.second))
-        Operations.MINUS.symbol -> RomanNumber(operands.first).subtract(RomanNumber(operands.second))
-        Operations.STAR.symbol -> RomanNumber(operands.first).multiply(RomanNumber(operands.second))
-        Operations.SLASH.symbol -> RomanNumber(operands.first).divide(RomanNumber(operands.second))
-        //TODO is this "else" required?
-        else -> "???"
-    }
+    val result = RomanNumber(operands.first).calculate(operands.second, operands.third)
     result.toString()
 } catch (e: EquationException) {
     "\nError! Wrong equation is given!"

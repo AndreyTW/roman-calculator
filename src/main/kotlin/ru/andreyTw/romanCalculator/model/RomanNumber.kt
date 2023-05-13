@@ -1,5 +1,7 @@
 package ru.andreyTw.romanCalculator.model
 
+import ru.andreyTw.romanCalculator.constants.Operations
+import ru.andreyTw.romanCalculator.constants.Operations.*
 import ru.andreyTw.romanCalculator.converters.ArabicToRomanConverter
 import ru.andreyTw.romanCalculator.converters.RomanToArabicConverter
 
@@ -33,11 +35,13 @@ class RomanNumber : Comparable<RomanNumber> {
     override fun compareTo(other: RomanNumber): Int =
         this.arabicValue.compareTo(other.arabicValue)
 
-    fun add(other: RomanNumber): RomanNumber = RomanNumber(this.arabicValue + other.arabicValue)
-    fun subtract(other: RomanNumber): RomanNumber = RomanNumber(this.arabicValue - other.arabicValue)
-    fun multiply(other: RomanNumber): RomanNumber = RomanNumber(this.arabicValue * other.arabicValue)
-    fun divide(other: RomanNumber): RomanNumber = RomanNumber(this.arabicValue / other.arabicValue)
-
     override fun toString(): String = romanValue
+
+    fun calculate(other: String, operation: String): RomanNumber = when (Operations.parse(operation)) {
+        PLUS -> RomanNumber(this.arabicValue + RomanNumber(other).arabicValue)
+        MINUS -> RomanNumber(this.arabicValue - RomanNumber(other).arabicValue)
+        STAR -> RomanNumber(this.arabicValue * RomanNumber(other).arabicValue)
+        else -> RomanNumber(this.arabicValue / RomanNumber(other).arabicValue)
+    }
 
 }

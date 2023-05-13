@@ -22,4 +22,6 @@
     4. Use brackets
     5. Remove code duplicates
     6. Check TODOs
+    7. Uninformative exceptions (UnknownOperationException is never used)
+    8. Spaces handling
     7. ...

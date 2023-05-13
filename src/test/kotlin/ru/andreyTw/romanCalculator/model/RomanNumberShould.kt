@@ -2,6 +2,9 @@ package ru.andreyTw.romanCalculator.model
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.MethodSource
+import java.util.stream.Stream
 
 /**
  * internal value : Int
@@ -38,25 +41,20 @@ class RomanNumberShould {
         assertEquals(1, RomanNumber("XI").compareTo(RomanNumber(10)))
     }
 
-    @Test
-    fun beAddedToOtherNumber() {
-        assertEquals(21, RomanNumber("XI").add(RomanNumber(10)).arabicValue)
-    }
-
-    @Test
-    fun beReducedByOtherNumber() {
-        assertEquals(1, RomanNumber("XI").subtract(RomanNumber(10)).arabicValue)
-    }
-
-    @Test
-    fun beMultipliedByOtherNumber() {
-        assertEquals(110, RomanNumber("XI").multiply(RomanNumber(10)).arabicValue)
-    }
-
-    @Test
-    fun beDividedByOtherNumber() {
-        assertEquals(5, RomanNumber("XXVI").divide(RomanNumber(5)).arabicValue)
-    }
-
     //TODO RomanNumber.operation(other, operation)
+    @ParameterizedTest(name = "{0}")
+    @MethodSource("calculateParameters")
+    fun beCalculatedUsingGivenOperationAndOtherOperand(entry: Pair<String, RomanNumber>) {
+        assertEquals(entry.second, RomanNumber("XXVI").calculate("V", entry.first))
+    }
+
+    companion object {
+        @JvmStatic
+        fun calculateParameters(): Stream<Pair<String, RomanNumber>> = Stream.of(
+            Pair("+", RomanNumber("XXXI")),
+            Pair("-", RomanNumber("XXI")),
+            Pair("*", RomanNumber("CXXX")),
+            Pair("/", RomanNumber("V"))
+        )
+    }
 }
