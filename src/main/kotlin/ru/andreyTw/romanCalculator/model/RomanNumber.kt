@@ -37,7 +37,7 @@ class RomanNumber : Comparable<RomanNumber> {
 
     override fun toString(): String = romanValue
 
-    fun calculate(other: String, operation: String): RomanNumber = when (Operations.parse(operation)) {
+    fun calculate(other: String, operation: String): RomanNumber = when (Operations.parseOperationSymbol(operation)) {
         PLUS -> RomanNumber(this.arabicValue + RomanNumber(other).arabicValue)
         MINUS -> RomanNumber(this.arabicValue - RomanNumber(other).arabicValue)
         STAR -> RomanNumber(this.arabicValue * RomanNumber(other).arabicValue)

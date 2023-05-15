@@ -11,17 +11,17 @@ class OperationsShould {
     @Test
     fun parseValidOperations() {
         values().forEach {
-            assertEquals(it, Operations.parse(it.symbol))
+            assertEquals(it, Operations.parseOperationSymbol(it.symbol))
         }
     }
 
     @Test
     fun throwUnknownOperationExceptionWhenUnderscoreIsGiven() {
-        assertThrows<UnknownOperationException> { Operations.parse("_") }
+        assertThrows<UnknownOperationException> { Operations.parseOperationSymbol("_") }
     }
 
     @Test
     fun giveRegularExpression() {
-        assertEquals("+\\-*/", Operations.regexp)
+        assertEquals("+\\-*/", Operations.allOperationSymbolsRegexp)
     }
 }

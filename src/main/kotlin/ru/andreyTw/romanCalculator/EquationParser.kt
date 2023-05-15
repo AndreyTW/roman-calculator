@@ -11,11 +11,12 @@ class EquationParser {
                 isCorrect(it)
             }
 
-            return inputEquationWithSpacesRemoved.split(*Operations.all.toTypedArray()).let {
+            return inputEquationWithSpacesRemoved.split(*Operations.allOperationSymbolsList.toTypedArray()).let {
                 Triple(
                     it.first(),
                     it.last(),
-                    "[${Operations.regexp}]".toRegex().find(inputEquationWithSpacesRemoved)?.value ?: ""
+                    "[${Operations.allOperationSymbolsRegexp}]".toRegex().find(inputEquationWithSpacesRemoved)?.value
+                        ?: ""
                 )
             }
         }
@@ -23,7 +24,7 @@ class EquationParser {
         private fun isCorrect(inputEquation: String) {
             if (!inputEquation
                     .matches(
-                        "[${Digits.regex}]{1,12}[${Operations.regexp}][${Digits.regex}]{1,12}"
+                        "[${Digits.regex}]{1,12}[${Operations.allOperationSymbolsRegexp}][${Digits.regex}]{1,12}"
                             .toRegex()
                     )
             )
