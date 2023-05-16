@@ -11,3 +11,6 @@ pluginManagement {
         kotlin("jvm") version kotlinVersion
     }
 }
+
+include("roman-calculator-core")
+include("roman-calculator-console")
