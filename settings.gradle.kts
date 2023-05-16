@@ -14,3 +14,4 @@ pluginManagement {
 
 include("roman-calculator-core")
 include("roman-calculator-console")
+include("roman-calculator-telegram")
