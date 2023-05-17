@@ -1,34 +1,31 @@
 package ru.andreyTw.romanCalculator.telegram
 
-import com.pengrad.telegrambot.TelegramBot
-import com.pengrad.telegrambot.UpdatesListener
-import com.pengrad.telegrambot.request.SendMessage
-import ru.andreyTw.romanCalculator.core.InputExpressionProcessor.Companion.processExpression
+import sun.misc.Signal
 import java.io.File
+import kotlin.system.exitProcess
+
+val telegramBotWrapper: BotWrapper = TelegramBotWrapper(File("botKey").readText())
 
 fun main() {
-
-    val bot = TelegramBot(File("botKey").readText())
-    var exitFlag = false
-    bot.setUpdatesListener { updates ->
-        updates.forEach {
-            val message = it.message().text()
-            println("Expression \"$message\" was successfully received")
-            if (message == "exit") {
-                exitFlag = true
-                bot.removeGetUpdatesListener()
-                bot.shutdown()
-            } else {
-                exitFlag = false
-                val result = processExpression(message)
-                bot.execute(SendMessage(it.message().chat().id(), result))
-            }
-        }
-        UpdatesListener.CONFIRMED_UPDATES_ALL
+    println("Application is starting!")
+    init()
+    Signal.handle(Signal("INT")) {
+        shutdown()
+        println("Application is closing!")
+        exitProcess(0)
     }
-
-    while (!exitFlag) {
-        println(exitFlag)
+    while (true) {
     }
+}
 
+private fun init() {
+    println("Telegram bot is initializing...")
+
+    telegramBotWrapper.init()
+}
+
+private fun shutdown() {
+    println("Telegram bot is shutting down...")
+
+    telegramBotWrapper.shutdown()
 }
