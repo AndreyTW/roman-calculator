@@ -4,10 +4,9 @@ import com.pengrad.telegrambot.TelegramBot
 import com.pengrad.telegrambot.UpdatesListener
 import com.pengrad.telegrambot.request.SendMessage
 import ru.andreyTw.romanCalculator.core.InputExpressionProcessor
-import java.io.File
 
-class TelegramBotWrapper(private val key: String) : BotWrapper {
-    private val bot: TelegramBot = TelegramBot(File("botKey").readText())
+class TelegramBotWrapper(key: String) : BotWrapper {
+    private val bot: TelegramBot = TelegramBot(key)
 
     override fun init() {
         bot.setUpdatesListener { updates ->
@@ -19,6 +18,10 @@ class TelegramBotWrapper(private val key: String) : BotWrapper {
             }
             UpdatesListener.CONFIRMED_UPDATES_ALL
         }
+    }
+
+    override fun sendMessage(chatId: String, message: String) {
+        TODO("Not yet implemented")
     }
 
     override fun shutdown() {
