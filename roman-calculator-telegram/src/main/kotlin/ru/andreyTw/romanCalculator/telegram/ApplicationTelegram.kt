@@ -1,10 +1,15 @@
 package ru.andreyTw.romanCalculator.telegram
 
+import ru.andreyTw.romanCalculator.core.InputExpressionProcessor
 import sun.misc.Signal
 import java.io.File
 import kotlin.system.exitProcess
 
-val telegramBotWrapper: BotWrapper = TelegramBotWrapper(File("botKey").readText())
+val telegramBotWrapper: BotWrapper = TelegramBotWrapper(
+    File("botKey").readText(),
+    File("botOwnerId").readText(),
+    InputExpressionProcessor::processExpression
+)
 
 fun main() {
     println("Application is starting!")
