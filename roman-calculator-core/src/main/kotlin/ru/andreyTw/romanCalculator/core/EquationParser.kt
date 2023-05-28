@@ -16,8 +16,7 @@ class EquationParser {
                 Triple(
                     it.first(),
                     it.last(),
-                    "[${Operations.allOperationSymbolsRegexp}]".toRegex().find(inputEquationWithSpacesRemoved)?.value
-                        ?: ""
+                    "[${Operations.allOperationSymbolsRegexp}]".toRegex().find(inputEquationWithSpacesRemoved)!!.value
                 )
             }
         }
