@@ -2,11 +2,11 @@ package ru.andreyTw.romanCalculator.telegram
 
 class Dispatcher(
     private val botWrapper: BotWrapper,
-    private val outputAppender: OutputAppender
+    private val outputAppender: (data: String) -> Unit
 ) {
 
     fun shutdown() {
-        outputAppender.out("Bot is shutting down...")
+        outputAppender("Bot is shutting down...")
         botWrapper.shutdown()
     }
 }
