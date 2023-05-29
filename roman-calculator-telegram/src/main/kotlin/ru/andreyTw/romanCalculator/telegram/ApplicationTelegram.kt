@@ -11,11 +11,18 @@ val telegramBotWrapper: BotWrapper = TelegramBotWrapper(
     InputExpressionProcessor::processExpression
 )
 
+val dispatcher = Dispatcher(telegramBotWrapper, object : OutputAppender {
+    override fun out(data: String) {
+        return println(data)
+    }
+
+})
+
 fun main() {
     println("Application is starting!")
     init()
     Signal.handle(Signal("INT")) {
-        shutdown()
+        dispatcher.shutdown()
         println("Application is closing!")
         exitProcess(0)
     }
@@ -27,10 +34,4 @@ private fun init() {
     println("Telegram bot is initializing...")
 
     telegramBotWrapper.init()
-}
-
-private fun shutdown() {
-    println("Telegram bot is shutting down...")
-
-    telegramBotWrapper.shutdown()
 }
