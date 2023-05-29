@@ -11,12 +11,7 @@ val telegramBotWrapper: BotWrapper = TelegramBotWrapper(
     InputExpressionProcessor::processExpression
 )
 
-val dispatcher = Dispatcher(telegramBotWrapper, object : OutputAppender {
-    override fun out(data: String) {
-        return println(data)
-    }
-
-})
+val dispatcher = Dispatcher(telegramBotWrapper, { println(it) })
 
 fun main() {
     println("Application is starting!")

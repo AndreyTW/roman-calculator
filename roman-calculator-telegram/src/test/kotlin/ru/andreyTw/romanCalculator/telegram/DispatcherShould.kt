@@ -17,18 +17,18 @@ class DispatcherShould {
     private lateinit var botWrapper: BotWrapper
 
     @Mock
-    private lateinit var outputAppender: OutputAppender
+    private lateinit var outputAppender: (data: String) -> Unit
 
     @BeforeEach
     fun setUp() {
-        dispatcher = Dispatcher(botWrapper, outputAppender)
+        dispatcher = Dispatcher(botWrapper, { outputAppender(it) })
     }
 
     @Test
     fun shutdown() {
         dispatcher.shutdown()
         verify(botWrapper).shutdown()
-        verify(outputAppender).out(eq("Bot is shutting down..."))
+        verify(outputAppender).invoke(eq("Bot is shutting down..."))
     }
 
 }
