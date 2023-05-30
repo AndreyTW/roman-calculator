@@ -21,7 +21,14 @@ class DispatcherShould {
 
     @BeforeEach
     fun setUp() {
-        dispatcher = Dispatcher(botWrapper, { outputAppender(it) })
+        dispatcher = Dispatcher(botWrapper) { outputAppender(it) }
+    }
+
+    @Test
+    fun initialize() {
+        dispatcher.init()
+        verify(botWrapper).init()
+        verify(outputAppender).invoke(eq("Bot is initializing..."))
     }
 
     @Test

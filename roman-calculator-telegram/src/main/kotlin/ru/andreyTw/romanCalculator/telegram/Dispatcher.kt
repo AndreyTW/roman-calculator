@@ -5,6 +5,11 @@ class Dispatcher(
     private val outputAppender: (data: String) -> Unit
 ) {
 
+    fun init() {
+        outputAppender("Bot is initializing...")
+        botWrapper.init()
+    }
+
     fun shutdown() {
         outputAppender("Bot is shutting down...")
         botWrapper.shutdown()

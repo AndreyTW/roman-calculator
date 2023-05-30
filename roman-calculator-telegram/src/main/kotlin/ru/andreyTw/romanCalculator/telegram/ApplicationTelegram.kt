@@ -6,8 +6,8 @@ import java.io.File
 import kotlin.system.exitProcess
 
 val telegramBotWrapper: BotWrapper = TelegramBotWrapper(
-    File("botKey").readText(),
-    File("botOwnerId").readText(),
+    File("roman-calculator-telegram/src/test/resources/botKey").readText(),
+    File("roman-calculator-telegram/src/test/resources/botOwnerId").readText(),
     InputExpressionProcessor::processExpression
 )
 
@@ -15,18 +15,12 @@ val dispatcher = Dispatcher(telegramBotWrapper, { println(it) })
 
 fun main() {
     println("Application is starting!")
-    init()
+    dispatcher.init()
     Signal.handle(Signal("INT")) {
-        dispatcher.shutdown()
         println("Application is closing!")
+        dispatcher.shutdown()
         exitProcess(0)
     }
     while (true) {
     }
-}
-
-private fun init() {
-    println("Telegram bot is initializing...")
-
-    telegramBotWrapper.init()
 }

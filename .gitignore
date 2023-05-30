@@ -1,5 +1,5 @@
 .idea/
 .gradle/
 build/
-botKey
-botOwnerId
+roman-calculator-telegram/src/test/resources/botKey
+roman-calculator-telegram/src/test/resources/botOwnerId
