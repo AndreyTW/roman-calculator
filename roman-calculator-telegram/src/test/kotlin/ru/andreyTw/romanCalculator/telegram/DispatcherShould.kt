@@ -38,5 +38,24 @@ class DispatcherShould {
         verify(outputAppender).invoke(eq("Bot is shutting down..."))
     }
 
+    @Test
+    fun executeStartSequence() {
+        val testMessage = "Test message"
+        dispatcher.executeStartSequence(testMessage)
+        //TODO ???
+        verify(botWrapper).init()
+        verify(outputAppender).invoke(eq(testMessage))
+    }
+
+//    @Test
+//    fun handleIntSignal() {
+//        val testMessage = "Test message"
+//        val testExitCode = 5
+//        dispatcher.handleIntSignal(testMessage, testExitCode)
+//        //TODO ???
+//        verify(botWrapper).shutdown()
+//        verify(outputAppender).invoke(eq(testMessage))
+//    }
+
 }
 
