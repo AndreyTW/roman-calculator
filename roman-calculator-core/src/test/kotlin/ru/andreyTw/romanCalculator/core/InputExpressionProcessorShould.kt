@@ -2,7 +2,7 @@ package ru.andreyTw.romanCalculator.core
 
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
-import ru.andreyTw.romanCalculator.core.InputExpressionProcessor.Companion.processExpression
+import ru.andreyTw.romanCalculator.core.InputExpressionProcessor.processExpression
 
 class InputExpressionProcessorShould {
     @Test

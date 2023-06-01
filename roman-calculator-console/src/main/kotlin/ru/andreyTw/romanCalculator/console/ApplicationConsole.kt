@@ -1,6 +1,6 @@
 package ru.andreyTw.romanCalculator.console
 
-import ru.andreyTw.romanCalculator.core.InputExpressionProcessor.Companion.processExpression
+import ru.andreyTw.romanCalculator.core.InputExpressionProcessor.processExpression
 
 fun main() {
 
