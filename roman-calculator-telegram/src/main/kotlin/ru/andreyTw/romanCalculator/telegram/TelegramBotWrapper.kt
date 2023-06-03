@@ -3,9 +3,8 @@ package ru.andreyTw.romanCalculator.telegram
 import com.pengrad.telegrambot.TelegramBot
 import com.pengrad.telegrambot.request.SendMessage
 
-
 // TODO add tests for class methods
-class TelegramBotWrapper(
+class TelegramBotWrapper private constructor(
     key: String,
     private val ownerId: String,
     processor: (message: String) -> String
@@ -15,7 +14,7 @@ class TelegramBotWrapper(
 
     override fun init() {
         bot.setUpdatesListener(customUpdateListener)
-        sendMessage(ownerId, "I'm ready!")
+        sendMessage(ownerId, "Calculator enabled!")
     }
 
     override fun sendMessage(chatId: String, message: String) {
@@ -23,8 +22,25 @@ class TelegramBotWrapper(
     }
 
     override fun shutdown() {
-        sendMessage(ownerId, "I'm going to die!")
+        sendMessage(ownerId, "Calculator disabled!")
         bot.removeGetUpdatesListener()
         bot.shutdown()
+    }
+
+    companion object {
+        private var uniqueTelegramBotWrapperInstance: TelegramBotWrapper? = null
+
+        fun getTelegramBotWrapper(
+            key: String,
+            ownerId: String,
+            processor: (message: String) -> String
+        ): TelegramBotWrapper {
+            when (uniqueTelegramBotWrapperInstance) {
+                null -> {
+                    uniqueTelegramBotWrapperInstance = TelegramBotWrapper(key, ownerId, processor)
+                }
+            }
+            return uniqueTelegramBotWrapperInstance!!
+        }
     }
 }

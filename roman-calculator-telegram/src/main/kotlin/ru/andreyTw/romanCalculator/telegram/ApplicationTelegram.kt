@@ -1,13 +1,13 @@
 package ru.andreyTw.romanCalculator.telegram
 
 import ru.andreyTw.romanCalculator.core.InputExpressionProcessor
+import ru.andreyTw.romanCalculator.telegram.TelegramBotWrapper.Companion.getTelegramBotWrapper
 import sun.misc.Signal
 import java.io.File
 import kotlin.system.exitProcess
 
-
 fun main() {
-    val telegramBotWrapper: BotWrapper = TelegramBotWrapper(
+    val telegramBotWrapper: BotWrapper = getTelegramBotWrapper(
         File("roman-calculator-telegram/src/test/resources/botKey").readText(),
         File("roman-calculator-telegram/src/test/resources/botOwnerId").readText(),
         InputExpressionProcessor::processExpression
