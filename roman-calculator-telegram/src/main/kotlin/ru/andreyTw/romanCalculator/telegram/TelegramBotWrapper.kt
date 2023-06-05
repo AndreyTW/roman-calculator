@@ -11,10 +11,16 @@ class TelegramBotWrapper private constructor(
 ) : BotWrapper {
     private val bot: TelegramBot = TelegramBot(key)
     private val customUpdateListener = CustomUpdateListener(this, processor)
+    private var initFlag: Boolean = false
 
     override fun init() {
-        bot.setUpdatesListener(customUpdateListener)
-        sendMessage(ownerId, "Calculator enabled!")
+        when {
+            !initFlag -> {
+                bot.setUpdatesListener(customUpdateListener)
+                sendMessage(ownerId, "Calculator enabled!")
+                initFlag = true
+            }
+        }
     }
 
     override fun sendMessage(chatId: String, message: String) {
@@ -28,19 +34,17 @@ class TelegramBotWrapper private constructor(
     }
 
     companion object {
-        private var uniqueTelegramBotWrapperInstance: TelegramBotWrapper? = null
+        private var instances: MutableMap<String, TelegramBotWrapper> = HashMap()
 
         fun getTelegramBotWrapper(
             key: String,
             ownerId: String,
             processor: (message: String) -> String
         ): TelegramBotWrapper {
-            when (uniqueTelegramBotWrapperInstance) {
-                null -> {
-                    uniqueTelegramBotWrapperInstance = TelegramBotWrapper(key, ownerId, processor)
-                }
+            if (!instances.containsKey(key)) {
+                instances[key] = TelegramBotWrapper(key, ownerId, processor)
             }
-            return uniqueTelegramBotWrapperInstance!!
+            return instances[key]!!
         }
     }
 }
