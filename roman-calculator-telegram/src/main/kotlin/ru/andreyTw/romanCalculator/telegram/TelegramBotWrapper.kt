@@ -5,11 +5,10 @@ import com.pengrad.telegrambot.request.SendMessage
 
 // TODO add tests for class methods
 class TelegramBotWrapper private constructor(
-    key: String,
     private val ownerId: String,
-    processor: (message: String) -> String
+    processor: (message: String) -> String,
+    private val bot: TelegramBot
 ) : BotWrapper {
-    private val bot: TelegramBot = TelegramBot(key)
     private val customUpdateListener = CustomUpdateListener(this, processor)
     private var initFlag: Boolean = false
 
@@ -36,15 +35,26 @@ class TelegramBotWrapper private constructor(
     companion object {
         private var instances: MutableMap<String, TelegramBotWrapper> = HashMap()
 
+        // test method version
+        fun getTelegramBotWrapper(
+            key: String,
+            ownerId: String,
+            processor: (message: String) -> String,
+            telegramBot: TelegramBot
+        ): TelegramBotWrapper {
+            if (!instances.containsKey(key)) {
+                instances[key] = TelegramBotWrapper(ownerId, processor, telegramBot)
+            }
+            return instances[key]!!
+        }
+
+        // method for common usage
         fun getTelegramBotWrapper(
             key: String,
             ownerId: String,
             processor: (message: String) -> String
         ): TelegramBotWrapper {
-            if (!instances.containsKey(key)) {
-                instances[key] = TelegramBotWrapper(key, ownerId, processor)
-            }
-            return instances[key]!!
+            return getTelegramBotWrapper(key, ownerId, processor, TelegramBot(key))
         }
     }
 }

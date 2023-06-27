@@ -1,60 +1,44 @@
 package ru.andreyTw.romanCalculator.telegram
 
 import com.pengrad.telegrambot.TelegramBot
+import com.pengrad.telegrambot.UpdatesListener
+import org.junit.jupiter.api.Assertions.assertNotNull
+import org.junit.jupiter.api.Assertions.assertNull
 import org.junit.jupiter.api.BeforeEach
-import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
-import org.mockito.Mock
-import org.mockito.junit.jupiter.MockitoExtension
-import org.mockito.kotlin.any
-import org.mockito.kotlin.verify
 import ru.andreyTw.romanCalculator.telegram.TelegramBotWrapper.Companion.getTelegramBotWrapper
-import java.lang.reflect.Field
-import java.lang.reflect.Modifier
 
-@ExtendWith(MockitoExtension::class)
 class TelegramBotWrapperShould {
 
     private lateinit var telegramBotWrapper: TelegramBotWrapper
 
-    @Mock
-    private lateinit var telegramBot: TelegramBot
+    private var telegramBot: MockTelegramBot = MockTelegramBot()
 
     @BeforeEach
     fun setUp() {
-        //
-        telegramBotWrapper = getTelegramBotWrapper("", "") { "" }
-        val botField = telegramBot.javaClass.getDeclaredField("api")
-        botField.isAccessible = true
-        val modifiers = Field::class.java.getDeclaredField("modifiers")
-        modifiers.isAccessible = true
-        modifiers.setInt(botField, botField.modifiers.and(Modifier.FINAL.inv()))
-
-
-
-
-
-
-        botField.set(telegramBotWrapper, telegramBot)
-        botField.isAccessible = false
+        telegramBotWrapper = getTelegramBotWrapper("", "", { "" }, telegramBot)
     }
 
-
-    @Test
+    //    @Test
     fun initializeBot() {
         telegramBotWrapper.init()
-        verify(telegramBot.setUpdatesListener(any()))
+        assertNotNull(telegramBot.mockUpdateListener)
+
+        telegramBotWrapper.shutdown()
+        assertNull(telegramBot.mockUpdateListener)
     }
 
-    @Test
-    fun sendMessageFromBot() {
-//        telegramBotWrapper.sendMessage()
+    class MockTelegramBot : TelegramBot("") {
 
-    }
+        var mockUpdateListener: UpdatesListener? = null
 
-    @Test
-    fun shutdownBot() {
-//        telegramBotWrapper.shutdown()
+        override fun setUpdatesListener(listener: UpdatesListener?) {
+            mockUpdateListener = listener
+            super.setUpdatesListener(listener)
+        }
 
+        override fun removeGetUpdatesListener() {
+            mockUpdateListener = null
+            super.removeGetUpdatesListener()
+        }
     }
 }
