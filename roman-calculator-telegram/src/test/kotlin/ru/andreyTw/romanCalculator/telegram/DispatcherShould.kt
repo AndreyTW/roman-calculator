@@ -19,43 +19,33 @@ class DispatcherShould {
     @Mock
     private lateinit var outputAppender: (data: String) -> Unit
 
+    @Mock
+    private lateinit var exitProcess: (signal: Int) -> Unit
+
     @BeforeEach
     fun setUp() {
-        dispatcher = Dispatcher(botWrapper) { outputAppender(it) }
-    }
-
-    @Test
-    fun initialize() {
-        dispatcher.init()
-        verify(botWrapper).init()
-        verify(outputAppender).invoke(eq("Bot is initializing..."))
-    }
-
-    @Test
-    fun shutdown() {
-        dispatcher.shutdown()
-        verify(botWrapper).shutdown()
-        verify(outputAppender).invoke(eq("Bot is shutting down..."))
+        dispatcher = Dispatcher(botWrapper, { outputAppender(it) }, { exitProcess(it) })
     }
 
     @Test
     fun executeStartSequence() {
-        val testMessage = "Test message"
-        dispatcher.executeStartSequence(testMessage)
-        //TODO ???
+        dispatcher.executeStartSequence("message")
+
         verify(botWrapper).init()
-        verify(outputAppender).invoke(eq(testMessage))
+        verify(outputAppender).invoke(eq("Bot is initializing..."))
+        verify(outputAppender).invoke(eq("message"))
     }
 
-//    @Test
-//    fun handleIntSignal() {
-//        val testMessage = "Test message"
-//        val testExitCode = 5
-//        dispatcher.handleIntSignal(testMessage, testExitCode)
-//        //TODO ???
-//        verify(botWrapper).shutdown()
-//        verify(outputAppender).invoke(eq(testMessage))
-//    }
+    @Test
+    fun handleIntSignal() {
+        dispatcher.handleIntSignal("message", 0)
+
+        verify(botWrapper).shutdown()
+        verify(outputAppender).invoke(eq("Bot is shutting down..."))
+        verify(outputAppender).invoke(eq("message"))
+        verify(exitProcess).invoke(eq(0))
+
+    }
 
 }
 

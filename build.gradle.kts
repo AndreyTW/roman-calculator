@@ -23,6 +23,7 @@ subprojects {
     dependencies {
         implementation(kotlin("stdlib-jdk8"))
         implementation("com.github.pengrad:java-telegram-bot-api:$tgBotAPIVersion")
+        implementation(kotlin("reflect"))
 
         testImplementation("org.junit.jupiter:junit-jupiter-api:$junitVersion")
         testImplementation("org.junit.jupiter:junit-jupiter-params:$junitVersion")
